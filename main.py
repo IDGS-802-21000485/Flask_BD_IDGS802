@@ -1,25 +1,40 @@
 from flask import Flask, request, render_template, Response
 from flask_wtf.csrf import CSRFProtect
+from flask import g
 from config import DevelomentConfig
-from models import Alumnos
+from models import alumno
 
 import forms
 from flask import flash
 from models import db
 app = Flask(__name__)
 app.config.from_object(DevelomentConfig)
-csrf=CSRFProtect()
+csrf = CSRFProtect()
+
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'),404
+    return render_template('404.html'), 404
 
-@app.route("/index")
+
+@app.route("/index", methods=["GET", "POST"])
 def index():
-    alum_form=forms.UserForm(request.form)
-    
-    return render_template("index.html", alum_form=alum_form)
+    alumnos_form = forms.UserForm(request.form)
 
+    if request.method == 'POST' :
+        alumnos = alumno(nombre=alumnos_form.nombre.data,
+                        apaterno=alumnos_form.apaterno.data,
+                        correo=alumnos_form.email.data)
+        # Insert
+        db.session.add(alumnos)
+        db.session.commit()
+    return render_template("index.html", form=alumnos_form)
+
+@app.route("/ABC_alumnos",  methods=("GET", "POST"))
+def ABCProfe():
+    profe_form = forms.UserForm(request.form)
+    alumnos = alumno.query.all()
+    return render_template('ABC_Alumnos.html', alumno=alumnos)
 
 @app.route("/alumnos", methods=("GET", "POST"))
 def alumnos():

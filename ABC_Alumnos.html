@@ -1,0 +1,34 @@
+{% extends 'layout2.html' %}
+{% block content %}
+{%from "_macros.html" import input_forms%}
+
+<div class="container">
+    <div class="row">
+        <h3>Alumnos</h3>
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Correo</th>
+                <th>Eliminar</th>
+                <th>Modificar</th>
+                
+            </tr>
+            </thead>
+            <tbody>
+                {% for alumno in alumno %}
+                <tr>
+                    <td>{{alumno.nombre}}</td>
+                    <td>{{alumno.apaterno}}</td>
+                    <td>{{alumno.email}}</td>
+                    <td><a class="btn btn-danger" href="eliminar.html?id={{alumno.id}}">Eliminar</a></td>
+                    <td><a class="btn btn-warning" href="modificar.html?id={{alumno.id}}">Modificar</a></td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{%endblock%}
