@@ -21,9 +21,9 @@
                 <tr>
                     <td>{{alumno.nombre}}</td>
                     <td>{{alumno.apaterno}}</td>
-                    <td>{{alumno.email}}</td>
-                    <td><a class="btn btn-danger" href="eliminar.html?id={{alumno.id}}">Eliminar</a></td>
-                    <td><a class="btn btn-warning" href="modificar.html?id={{alumno.id}}">Modificar</a></td>
+                    <td>{{alumno.correo}}</td>
+                    <td><a class="btn btn-danger" href="/eliminar?id={{alumno.id}}">Eliminar</a></td>
+                    <td><a class="btn btn-warning" href="/modificar?id={{alumno.id}}">Modificar</a></td>
                 </tr>
                 {%endfor%}
             </tbody>
